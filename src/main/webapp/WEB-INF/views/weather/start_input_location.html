@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weather</title>
+</head>
+<body>
+
+<form method="GET" action="/weather">
+  <label for="location">Location</label>
+  <input name ="location" type="text" id="location">
+
+  <input type="submit" value="Submit">
+
+</form>
+
+<div th:if="${weather.getLocation == null}">
+  <h1 th:text="${location.getName() + ', ' + location.getState() + ', ' + location.getCountry()}"/>
+  <a href="/weather/now">For now</a>
+  <a href="/weather/weak">For this weak</a>
+
+</div>
+
+
+
+</body>
+</html>
