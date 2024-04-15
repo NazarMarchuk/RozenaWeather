@@ -7,6 +7,7 @@ public class LocationModel {
     private String country;
     private String state;
 
+
     public String getLat() {
         return lat;
     }
