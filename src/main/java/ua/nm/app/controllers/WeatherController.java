@@ -22,27 +22,41 @@ public class WeatherController {
 
         if (!(inputtedLocation == null || inputtedLocation.isEmpty())) {
             location = locationFinder.getLocationCoordinates(inputtedLocation);
+            WeatherModel currentWeather = weather.getWeatherOneDayByLocation(location);
+            model.addAttribute("currentWeather", currentWeather);
         }
 
         model.addAttribute("weather", weather);
         model.addAttribute("location", location);
+
         return "weather/start_input_location";
     }
 
-    @GetMapping("/now")
-    public String weatherNowPage(Model model) {
-        System.out.println("finding weather in: " + location);
-        WeatherModel currentWeather = weather.getWeatherOneDayByLocation(location);
-        model.addAttribute("weather", currentWeather);
-        return "weather/now";
-    }
-
     @GetMapping("/weak")
-    public String WeatherWeek(Model model) {
-        List<WeatherModel> weakBroadcast = weather.weatherForWeak(location);
+    public String weatherWeek(Model model) {
+        List<WeatherModel> weakBroadcast = weather.weatherForWeek(location);
         model.addAttribute("weatherList", weakBroadcast);
 
         return "weather/one_weak";
+    }
+
+    @GetMapping("/day")
+    public String weatherDay(Model model) {
+        List<WeatherModel> dayBroadcast = weather.weatherForDayByHour(location);
+        model.addAttribute("weatherList", dayBroadcast);
+
+        String [] weatherTime = new String[25];
+        weatherTime[0] = "Now";
+        weatherTime[1] = "1 Hour";
+
+        int hour = 2;
+        while (hour < 25) {
+            weatherTime[hour] = hour + " Hours";
+            hour++;
+        }
+        model.addAttribute("weatherTime", weatherTime);
+
+        return "weather/one_day";
     }
 
 }

@@ -8,6 +8,8 @@
 <body>
 <h1>Location: <span th:text="${weatherList.get(0).getLocation().getName() + ', ' + weatherList.get(0).getLocation().getState()}"></span></h1>
 
+
+
 <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
   <div th:each="weather: ${weatherList}">
     <div class="col">
@@ -17,12 +19,10 @@
         </div>
         <div class="card-body">
           <ul class="list-unstyled mt-3 mb-4">
-            <h4>Day: <span th:text="${weatherList.indexOf(weather) + 1}"></span></h4>
-            <p>Avg day Temperature: <span th:text="${weather.getTemperature()}"></span></p>
-            <p>Max Temperature: <span th:text="${weather.getTemperatureMax()}"></span></p>
-            <p>Min Temperature: <span th:text="${weather.getTemperatureMin()}"></span></p>
+            <h4>Time: <span th:text="${weatherTime[weatherList.indexOf(weather)]}"></span></h4>
+            <p>Temperature: <span th:text="${weather.getTemperature()}"></span></p>
             <p>Condition: <span th:text="${weather.getCondition()}"></span></p>
-            <p>Condition: <span th:text="${weather.getWeatherDescription()}"></span></p>
+            <p>Description: <span th:text="${weather.getWeatherDescription()}"></span></p>
           </ul>
         </div>
       </div>

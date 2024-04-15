@@ -10,7 +10,43 @@ public class WeatherModel {
     private final WeatherApiChecker weatherChecker = new WeatherApiChecker();
     private LocationModel location;
     private String temperature;
+    private String temperatureMax;
+    private String temperatureMin;
+    private String temperatureFeelsLike;
     private String condition;
+    private String weatherDescription;
+
+    public String getWeatherDescription() {
+        return weatherDescription;
+    }
+
+    public void setWeatherDescription(String weatherDescription) {
+        this.weatherDescription = weatherDescription;
+    }
+
+    public String getTemperatureMax() {
+        return temperatureMax;
+    }
+
+    public void setTemperatureMax(String temperatureMax) {
+        this.temperatureMax = temperatureMax;
+    }
+
+    public String getTemperatureMin() {
+        return temperatureMin;
+    }
+
+    public void setTemperatureMin(String temperatureMin) {
+        this.temperatureMin = temperatureMin;
+    }
+
+    public String getTemperatureFeelsLike() {
+        return temperatureFeelsLike;
+    }
+
+    public void setTemperatureFeelsLike(String temperatureFeelsLike) {
+        this.temperatureFeelsLike = temperatureFeelsLike;
+    }
 
     public LocationModel getLocation() {
         return location;
@@ -49,7 +85,7 @@ public class WeatherModel {
         return currentWeather;
     }
 
-    public List<WeatherModel> weatherForWeak (LocationModel location){
+    public List<WeatherModel> weatherForWeek (LocationModel location){
         JSONArray data = weatherChecker.checkWeather(location.getLat(), location.getLon()).getJSONArray("daily");
         WeatherModel currentWeather;
         ArrayList<WeatherModel> weakBroadcast = new ArrayList<>();
@@ -59,13 +95,36 @@ public class WeatherModel {
             currentWeather = new WeatherModel();
             JSONObject weatherData = data.getJSONObject(day);
             currentWeather.setTemperature(String.valueOf(weatherData.getJSONObject("temp").getDouble("day")));
+            currentWeather.setTemperatureMax(String.valueOf(weatherData.getJSONObject("temp").getDouble("max")));
+            currentWeather.setTemperatureMin(String.valueOf(weatherData.getJSONObject("temp").getDouble("min")));
             currentWeather.setCondition(weatherData.getJSONArray("weather").getJSONObject(0).getString("main"));
+            currentWeather.setWeatherDescription(weatherData.getJSONArray("weather").getJSONObject(0).getString("description"));
             currentWeather.setLocation(location);
             weakBroadcast.add(currentWeather);
             day++;
         }
 
         return weakBroadcast;
+    }
+
+    public List<WeatherModel> weatherForDayByHour (LocationModel location){
+        JSONArray data = weatherChecker.checkWeather(location.getLat(), location.getLon()).getJSONArray("hourly");
+        WeatherModel currentWeather;
+        ArrayList<WeatherModel> dayBroadcast = new ArrayList<>();
+
+        int hour = 0;
+        while (hour < 25) {
+            currentWeather = new WeatherModel();
+            JSONObject weatherData = data.getJSONObject(hour);
+            currentWeather.setTemperature(String.valueOf(weatherData.getDouble("temp")));
+            currentWeather.setCondition(weatherData.getJSONArray("weather").getJSONObject(0).getString("main"));
+            currentWeather.setWeatherDescription(weatherData.getJSONArray("weather").getJSONObject(0).getString("description"));
+            currentWeather.setLocation(location);
+            dayBroadcast.add(currentWeather);
+            hour++;
+        }
+
+        return dayBroadcast;
     }
 
 
