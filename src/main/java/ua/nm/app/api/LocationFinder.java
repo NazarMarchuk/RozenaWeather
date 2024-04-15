@@ -27,7 +27,7 @@ public class LocationFinder {
                 connection.setRequestMethod("GET");
 
                 int responseCode = connection.getResponseCode();
-                System.out.println("Response code: " + responseCode);
+                System.out.println("LocationFinder: Response code: " + responseCode);
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 StringBuilder response = new StringBuilder();
@@ -42,8 +42,6 @@ public class LocationFinder {
                 connection.disconnect();
 
                 resultJson = new JSONArray(response.toString()).getJSONObject(0);
-
-                System.out.println(response.toString());
 
                 location.setLat(String.valueOf(resultJson.getDouble("lat")));
                 location.setLon(String.valueOf(resultJson.getDouble("lon")));

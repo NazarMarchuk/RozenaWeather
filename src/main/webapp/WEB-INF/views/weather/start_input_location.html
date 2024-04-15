@@ -14,10 +14,26 @@
 
 </form>
 
-<div th:if="${weather.getLocation == null}">
-  <h1 th:text="${location.getName() + ', ' + location.getState() + ', ' + location.getCountry()}"/>
-  <a href="/weather/now">For now</a>
-  <a href="/weather/weak">For this weak</a>
+<div th:if="${currentWeather.getCondition() != null}">
+  <div>
+    <h1 th:text="${location.getName() + ', ' + location.getState() + ', ' + location.getCountry()}"/>
+    <div class="col">
+      <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-3">
+          <h4 class="my-0 fw-normal"></h4>
+        </div>
+        <div class="card-body">
+          <p>Current Temperature: <span th:text="${currentWeather.getTemperature()}"></span></p>
+          <p>Current Condition: <span th:text="${currentWeather.getCondition()}"></span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <a href="/weather/day">Next 24 Hours</a>
+    <a href="/weather/weak">Next Week</a>
+  </div>
 
 </div>
 

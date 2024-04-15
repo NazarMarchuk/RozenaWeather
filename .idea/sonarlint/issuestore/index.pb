@@ -45,3 +45,5 @@ m
 =src/main/webapp/WEB-INF/views/weather/input_ted_location.html,8/e/8e215819b3a62d608b1414651048dc4840d9b6b6
 o
 ?src/main/webapp/WEB-INF/views/weather/start_input_location.html,5/2/52db3a7f4bc2d6942747f20b187ab1a5b5a028f8
+b
+2src/main/webapp/WEB-INF/views/weather/one_day.html,b/9/b9fc356ef4dbde7ba4e3ee20a56892df01ab978d
