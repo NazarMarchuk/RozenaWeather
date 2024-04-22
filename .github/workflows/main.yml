@@ -27,4 +27,6 @@ jobs:
        mvn clean install
       
     - name: Run tests
-      run: mvn test
+      run: |
+       cd Back
+       mvn test
