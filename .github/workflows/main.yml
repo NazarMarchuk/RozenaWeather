@@ -22,7 +22,7 @@ jobs:
         distribution: 'adopt'
     
     - name: Build project with Maven
-      run: mvn clean install --file pom.xml
+      run: mvn clean install --file back/pom.xml
       
     - name: Run tests
       run: mvn test
