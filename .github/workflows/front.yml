@@ -1,0 +1,38 @@
+name: Rozena front pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      
+    - name: Install CMake
+      run: sudo apt-get install -y cmake
+      
+    - name: Set up Qt environment
+      run: |
+        export QTDIR=/path/to/your/qt/installation
+        export PATH=$QTDIR/bin:$PATH
+      
+    - name: Build project
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+        make
+
+    - name: Run Qt application
+      run: |
+        cd build
+        ./your_qt_application
+
