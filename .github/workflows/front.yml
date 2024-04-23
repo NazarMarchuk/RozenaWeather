@@ -1,4 +1,4 @@
-name: Rozena front pipeline
+name: QT Build
 
 on:
   push:
@@ -14,9 +14,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install Qt
+      - name: Install build dependencies
         run: |
-          sudo apt-get update && sudo apt-get install -y qt5-default qt5-dev qt5-qmake qt5-QtWidgets qt5-core libqt5core5-dev libqt5gui5-dev libqt5widgets5-dev
+          sudo apt-get update && sudo apt-get install -y \
+            build-essential \
+            qtbase5-dev \
+            qt5-qmake \
+            qt5-QtWidgets \
+            qt5-core \
+            libqt5core5-dev \
+            libqt5gui5-dev \
+            libqt5widgets5-dev
 
       - name: Configure project
         run: qmake Regestration_form.pro
@@ -24,8 +32,8 @@ jobs:
       - name: Build project
         run: make
 
-      - name: Upload artifacts
+      - name: Upload artifacts (optional)
         uses: actions/upload-artifact@v3
         with:
           name: qt-build
-          path: ./
+          path: ./  # Adjust path if needed
