@@ -1,4 +1,4 @@
-name: Rozena pipeline
+name: Rozena pipeline back
 
 on: push 
 
