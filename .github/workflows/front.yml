@@ -16,23 +16,16 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
       
-    - name: Install CMake
-      run: sudo apt-get install -y cmake
-      
-    - name: Set up Qt environment
-      run: |
-        export QTDIR=/path/to/your/qt/installation
-        export PATH=$QTDIR/bin:$PATH
-      
+    - name: Set up Qt
+      uses: jurplel/setup-qt@v2
+      with:
+        qt-version: '6.2.0'
+    
     - name: Build project
       run: |
-        mkdir build
-        cd build
-        cmake ..
-        make
-
-    - name: Run Qt application
-      run: |
-        cd build
-        ./your_qt_application
+      cd Front
+      qmake && make
+    
+    - name: Run tests
+      run: # Your test command here
 
