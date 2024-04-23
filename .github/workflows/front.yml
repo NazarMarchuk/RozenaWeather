@@ -1,18 +1,18 @@
 name: CI
  
-on: push # when to trigger this. Here, on every push
+on: push 
+
 jobs:
   build_and_test:
     name: "Build and test"
     strategy:
       matrix:
-        os: [ubuntu-latest] # we build on GitHub-provided Windows and Linux images
-    runs-on: ${{ matrix.os }} # use value from the matrix
+        os: [ubuntu-latest] 
+    runs-on: ${{ matrix.os }}
     steps:
     - name: Install dependencies (linux)
       run: sudo apt install ninja-build
-      if: matrix.os == 'ubuntu-latest' # conditional, runs this step only on the Ubuntu runner
-      
+      if: matrix.os == 'ubuntu-latest'
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
       with:
@@ -21,10 +21,7 @@ jobs:
     - uses: actions/checkout@v3    # Actually check out the sources. GH Actions can run for events that may not require
                                    # sources (e.g. when someone comments on an issue)
  
-    # Here we call CMake manually, there are solutions for that in the Marketplace: https://github.com/marketplace/actions/run-cmake
     - name: Build
-      # We don't need to set up the environment variable for CMake to see Qt because the install-qt-action
-      # sets up the necessary variables automatically
       run: |
        cd Front
        qmake && make
