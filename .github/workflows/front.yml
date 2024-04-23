@@ -27,5 +27,5 @@ jobs:
        qmake && make
     
     - name: Run tests
-      run: # Your test command here
+      run: ls
 
