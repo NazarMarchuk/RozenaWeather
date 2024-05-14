@@ -1,0 +1,27 @@
+name: Rozena pipeline back
+
+on: push 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11' 
+        distribution: 'adopt'
+    
+    - name: Build project with Maven
+      run: |
+       cd Back
+       mvn clean install
+      
+    - name: Run tests
+      run: |
+       cd Back
+       mvn test
