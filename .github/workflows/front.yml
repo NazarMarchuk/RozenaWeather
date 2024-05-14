@@ -1,0 +1,27 @@
+name: Rozena pipeline front
+ 
+on: push 
+
+jobs:
+  build_and_test:
+    name: "Build and test"
+    strategy:
+      matrix:
+        os: [ubuntu-latest] 
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Install dependencies (linux)
+      run: sudo apt install ninja-build
+      if: matrix.os == 'ubuntu-latest'
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        version: '6.5.2'
+    - uses: ilammy/msvc-dev-cmd@v1 # This action essentially calls vcvarsall.bat for the latest VS in the runner for x64
+    - uses: actions/checkout@v3    # Actually check out the sources. GH Actions can run for events that may not require
+                                   # sources (e.g. when someone comments on an issue)
+ 
+    - name: Build
+      run: |
+       cd Front
+       qmake && make
