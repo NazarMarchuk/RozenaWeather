@@ -5,6 +5,10 @@
 #include "dbmanager.h"
 #include "popupdialog.h"
 
+const QString DB_PATH = "/Users/bohdanborshchevskyi/Documents/git/RozenaWeather/Front/";
+const QString DB_NAME = "user_login_data.db";
+
+
 class Login: public QWidget
 {
 Q_OBJECT
@@ -17,7 +21,6 @@ public:
     explicit Login(QWidget *parent = nullptr);
 private slots:
     void inputCheck();
-    void addUser();
     bool userExist();
 };
 

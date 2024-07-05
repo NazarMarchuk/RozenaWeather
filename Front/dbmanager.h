@@ -8,7 +8,7 @@ class DbManager
 {
 public:
     DbManager(const QString& path);
-    bool insertUserLoginData(const QString& login, const QString&  password);
+    bool insertUserLoginData(const QString& login, const QString&  password, const QString& location);
     bool checkIfUserExist(const QString& login);
     bool checkPassword(const QString& login, const QString&  password);
 private:

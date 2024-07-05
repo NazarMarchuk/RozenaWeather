@@ -3,6 +3,7 @@
 #include "dbmanager.h"
 #include "popupdialog.h"
 #include "login.h"
+#include "register.h"
 
 Form::Form(QWidget *parent)
     : QWidget{parent}
@@ -23,7 +24,9 @@ Form::Form(QWidget *parent)
 
 }
 void Form::registrtionForm(){
-
+    clearWidgets();
+    Register* reg = new Register(this);
+    reg->show();
 }
 void Form::clearWidgets()
 {
