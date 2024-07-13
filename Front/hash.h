@@ -5,7 +5,6 @@
 
 class hash
 {
-    QString placeHolder;
 public:
     hash(QString &base);
 };
