@@ -13,6 +13,7 @@ CONFIG += c++17
 SOURCES += \
     dbmanager.cpp \
     form.cpp \
+    hash.cpp \
     login.cpp \
     main.cpp \
     popupdialog.cpp \
@@ -22,6 +23,7 @@ SOURCES += \
 HEADERS += \
     dbmanager.h \
     form.h \
+    hash.h \
     login.h \
     popupdialog.h \
     register.h \
