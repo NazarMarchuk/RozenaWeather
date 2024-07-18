@@ -18,12 +18,13 @@ DbManager::DbManager(const QString& path)
     }
 }
 
-bool DbManager::insertUserLoginData(const QString& login, const QString& password)
+bool DbManager::insertUserLoginData(const QString& login, const QString& password, const QString& location)
 {
     QSqlQuery query(m_db);
-    bool res = query.prepare("INSERT INTO user_login_data (login, password) VALUES (:login, :password)");
+    bool res = query.prepare("INSERT INTO user_login_data (login, password, location) VALUES (:login, :password, :location)");
     query.bindValue(":login", login);
     query.bindValue(":password", password);
+    query.bindValue(":location", location);
     if (!query.exec())
     {
         qDebug() << "Error: Failed to insert user login data:" << query.lastError().text();

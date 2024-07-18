@@ -16,6 +16,7 @@ SOURCES += \
     login.cpp \
     main.cpp \
     popupdialog.cpp \
+    register.cpp \
     web.cpp
 
 HEADERS += \
@@ -23,6 +24,7 @@ HEADERS += \
     form.h \
     login.h \
     popupdialog.h \
+    register.h \
     web.h
 
 FORMS +=

@@ -27,7 +27,7 @@ Login::Login(QWidget *parent)
 }
 
 void Login::inputCheck(){
-    DbManager database("/Users/bohdan/Documents/cpp_lrn/Regestration_form/user_login_data.db");
+    DbManager database(DB_PATH + DB_NAME);
     QString login = this->login->text();
     QString password = this->password->text();
     if(userExist()){
@@ -44,9 +44,8 @@ void Login::inputCheck(){
 }
 
 bool Login::userExist(){
-    DbManager database("/Users/bohdan/Documents/cpp_lrn/Regestration_form/user_login_data.db");
+    DbManager database(DB_PATH + DB_NAME);
     QString login = this->login->text();
-    QString password = this->password->text();
     if (database.checkIfUserExist(login)){
         return true;
     }else{
@@ -54,13 +53,3 @@ bool Login::userExist(){
     }
 }
 
-void Login::addUser(){
-    DbManager database("/Users/bohdan/Documents/cpp_lrn/Regestration_form/user_login_data.db");
-    QString login = this->login->text();
-    QString password = this->password->text();
-    if (database.insertUserLoginData(login, password)){
-        qDebug() << "User succesfully added";
-    }else{
-        qDebug() << "User not added";
-    }
-}
