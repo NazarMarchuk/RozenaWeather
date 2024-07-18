@@ -1,5 +1,6 @@
 #include "login.h"
 #include "dbmanager.h"
+#include "hash.h"
 
 Login::Login(QWidget *parent)
     :QWidget{parent}{
@@ -30,9 +31,14 @@ void Login::inputCheck(){
     DbManager database(DB_PATH + DB_NAME);
     QString login = this->login->text();
     QString password = this->password->text();
+    QString hashedPassword = password;
+    hash performHashing(hashedPassword);
+
     if(userExist()){
-        if (database.checkPassword(login, password)){
+        if (database.checkPassword(login, hashedPassword)){
             qDebug() << "password is correct";
+            PopupDialog dialog("Succesfully loged in");
+            dialog.exec();
         }else{
             PopupDialog dialog("incorrect password");
             dialog.exec();

@@ -59,8 +59,12 @@ void Register::addUser(){
     QString login = this->login->text();
     QString password = this->password->text();
     QString location = this->location->text();
-    if (database.insertUserLoginData(login, password, location)){
+    QString hashedPassword = password;
+    hash performHashing(hashedPassword);
+    if (database.insertUserLoginData(login, hashedPassword, location)){
         qDebug() << "User succesfully added";
+        PopupDialog dialog("Succesfully registred");
+        dialog.exec();
     }else{
         qDebug() << "User not added";
     }

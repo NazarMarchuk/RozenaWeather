@@ -2,9 +2,10 @@
 #define REGISTER_H
 
 #include "form.h"
-#include <QDebug>
+#include "hash.h"
 #include "dbmanager.h"
 #include "popupdialog.h"
+#include <QDebug>
 
 class Register: public QWidget
 {
