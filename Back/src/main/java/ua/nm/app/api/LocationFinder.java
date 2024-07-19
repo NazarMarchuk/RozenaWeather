@@ -6,11 +6,25 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import ua.nm.app.dao.LocationDAO;
 import ua.nm.app.models.LocationModel;
 
+@Component
 public class LocationFinder {
+    private LocationModel location = new LocationModel();
+
+    @Autowired
+    private LocationDAO locationDAO;
+
     public LocationModel getLocationCoordinates(String name) {
-        LocationModel location = new LocationModel();
+        //use location from db if it's present by name
+        LocationModel dbLocation =  locationDAO.getLocation(name);
+
+        if (dbLocation != null) {
+            return dbLocation;
+        }
 
         String baseUrl = "http://api.openweathermap.org/geo/1.0/direct";
         String apiKey = "60059ed55a69c0f3cef120a39a895b29";
@@ -48,6 +62,10 @@ public class LocationFinder {
                 location.setName(resultJson.getString("name"));
                 location.setCountry(resultJson.getString("country"));
                 location.setState(resultJson.getString("state"));
+
+                if (locationDAO.getLocation(location.getName()) == null) {
+                    locationDAO.saveLocation(location);
+                }
 
             } catch (Exception e) {
                 throw new RuntimeException(e);

@@ -38,5 +38,8 @@ build/
 ### Mac OS ###
 .DS_Store
 
-# Ignore SonarLint files
+### Ignore SonarLint files ###
 .idea/sonarlint/
+
+### resources ###
+Back/src/main/resources/database.properties

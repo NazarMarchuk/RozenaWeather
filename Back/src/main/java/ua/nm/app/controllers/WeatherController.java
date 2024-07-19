@@ -1,6 +1,7 @@
 package ua.nm.app.controllers;
 
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,12 @@ import ua.nm.app.models.WeatherModel;
 public class WeatherController {
     WeatherModel weather = new WeatherModel();
     LocationModel location = new LocationModel();
-    LocationFinder locationFinder = new LocationFinder();
+    LocationFinder locationFinder;
+
+    @Autowired
+    public WeatherController(LocationFinder locationFinder) {
+        this.locationFinder = locationFinder;
+    }
 
     @GetMapping("")
     public String setInputs(@ModelAttribute("location") String inputtedLocation, Model model) {
