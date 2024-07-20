@@ -4,10 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ua.nm.app.api.WeatherApiChecker;
 
+@Component
 public class WeatherModel {
-    private final WeatherApiChecker weatherChecker = new WeatherApiChecker();
+    private static final String WEATHER = "weather";
+    private static final String TEMP = "temp";
+
+    private final WeatherApiChecker weatherChecker;
+
     private LocationModel location;
     private String temperature;
     private String temperatureMax;
@@ -15,6 +22,11 @@ public class WeatherModel {
     private String temperatureFeelsLike;
     private String condition;
     private String weatherDescription;
+
+    @Autowired
+    public WeatherModel(WeatherApiChecker weatherChecker) {
+        this.weatherChecker = weatherChecker;
+    }
 
     public String getWeatherDescription() {
         return weatherDescription;
@@ -73,13 +85,13 @@ public class WeatherModel {
     }
 
     public WeatherModel getWeatherOneDayByLocation(LocationModel location) {
-        WeatherModel currentWeather = new WeatherModel();
+        WeatherModel currentWeather = new WeatherModel(weatherChecker);
 
         JSONObject data =
             weatherChecker.checkWeather(location.getLat(), location.getLon()).getJSONObject("current");
 
-        currentWeather.setTemperature(String.valueOf(data.getDouble("temp")));
-        currentWeather.setCondition(data.getJSONArray("weather").getJSONObject(0).getString("main"));
+        currentWeather.setTemperature(String.valueOf(data.getDouble(TEMP)));
+        currentWeather.setCondition(data.getJSONArray(WEATHER).getJSONObject(0).getString("main"));
         currentWeather.setLocation(location);
 
         return currentWeather;
@@ -92,13 +104,13 @@ public class WeatherModel {
 
         int day = 0;
         while (day < 7) {
-            currentWeather = new WeatherModel();
+            currentWeather = new WeatherModel(weatherChecker);
             JSONObject weatherData = data.getJSONObject(day);
-            currentWeather.setTemperature(String.valueOf(weatherData.getJSONObject("temp").getDouble("day")));
-            currentWeather.setTemperatureMax(String.valueOf(weatherData.getJSONObject("temp").getDouble("max")));
-            currentWeather.setTemperatureMin(String.valueOf(weatherData.getJSONObject("temp").getDouble("min")));
-            currentWeather.setCondition(weatherData.getJSONArray("weather").getJSONObject(0).getString("main"));
-            currentWeather.setWeatherDescription(weatherData.getJSONArray("weather").getJSONObject(0).getString("description"));
+            currentWeather.setTemperature(String.valueOf(weatherData.getJSONObject(TEMP).getDouble("day")));
+            currentWeather.setTemperatureMax(String.valueOf(weatherData.getJSONObject(TEMP).getDouble("max")));
+            currentWeather.setTemperatureMin(String.valueOf(weatherData.getJSONObject(TEMP).getDouble("min")));
+            currentWeather.setCondition(weatherData.getJSONArray(WEATHER).getJSONObject(0).getString("main"));
+            currentWeather.setWeatherDescription(weatherData.getJSONArray(WEATHER).getJSONObject(0).getString("description"));
             currentWeather.setLocation(location);
             weakBroadcast.add(currentWeather);
             day++;
@@ -114,11 +126,11 @@ public class WeatherModel {
 
         int hour = 0;
         while (hour < 25) {
-            currentWeather = new WeatherModel();
+            currentWeather = new WeatherModel(weatherChecker);
             JSONObject weatherData = data.getJSONObject(hour);
-            currentWeather.setTemperature(String.valueOf(weatherData.getDouble("temp")));
-            currentWeather.setCondition(weatherData.getJSONArray("weather").getJSONObject(0).getString("main"));
-            currentWeather.setWeatherDescription(weatherData.getJSONArray("weather").getJSONObject(0).getString("description"));
+            currentWeather.setTemperature(String.valueOf(weatherData.getDouble(TEMP)));
+            currentWeather.setCondition(weatherData.getJSONArray(WEATHER).getJSONObject(0).getString("main"));
+            currentWeather.setWeatherDescription(weatherData.getJSONArray(WEATHER).getJSONObject(0).getString("description"));
             currentWeather.setLocation(location);
             dayBroadcast.add(currentWeather);
             hour++;

@@ -6,14 +6,22 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 import ua.nm.app.models.LocationModel;
 
+@Component
+@PropertySource("classpath:weatherApi.properties")
 public class LocationFinder {
+    @Value("${location.base_url}")
+    private String baseUrl;
+    @Value("${api_key}")
+    private String apiKey;
+
     public LocationModel getLocationCoordinates(String name) {
         LocationModel location = new LocationModel();
 
-        String baseUrl = "http://api.openweathermap.org/geo/1.0/direct";
-        String apiKey = "60059ed55a69c0f3cef120a39a895b29";
         String params = String.format("?q=%s&appid=%s&limit=%s", name, apiKey, "1");
 
         URL url;
@@ -25,9 +33,6 @@ public class LocationFinder {
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
                 connection.setRequestMethod("GET");
-
-                int responseCode = connection.getResponseCode();
-                System.out.println("LocationFinder: Response code: " + responseCode);
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 StringBuilder response = new StringBuilder();
