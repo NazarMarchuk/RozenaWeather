@@ -4,6 +4,8 @@
 #include <QDebug>
 #include "dbmanager.h"
 #include "popupdialog.h"
+#include "dbmanager.h"
+#include "hash.h"
 
 const QString DB_PATH = "/Users/bohdanborshchevskyi/Documents/git/RozenaWeather/Front/";
 const QString DB_NAME = "user_login_data.db";
@@ -11,9 +13,10 @@ const QString DB_NAME = "user_login_data.db";
 
 class Login: public QWidget
 {
-Q_OBJECT
+    Q_OBJECT
 private:
     QPushButton *enterButton;
+    QPushButton *backButton;
     QLineEdit *login;
     QLineEdit *password;
     QVBoxLayout* layout;
@@ -22,6 +25,7 @@ public:
 private slots:
     void inputCheck();
     bool userExist();
+    void stepBack();
 };
 
 #endif // LOGIN_H

@@ -1,15 +1,19 @@
 #include "form.h"
-#include <QDebug>
-#include "dbmanager.h"
-#include "popupdialog.h"
-#include "login.h"
-#include "register.h"
+// #include <QIcon>
+
+void clearWidgets(QWidget *parent)
+{
+    QList<QWidget *> widgets = parent->findChildren<QWidget *>();
+    foreach (QWidget *widget, widgets) {
+        widget->deleteLater();
+    }
+}
 
 Form::Form(QWidget *parent)
     : QWidget{parent}
 {
 
-    this->setWindowTitle("Registration form");
+    this->setWindowTitle("Rozena weather");
     this->resize(300, 300);
     this->show();
 
@@ -22,25 +26,29 @@ Form::Form(QWidget *parent)
     connect(registerButton, &QPushButton::clicked, this, &Form::registrtionForm);
     connect(loginButton, &QPushButton::clicked, this, &Form::loginForm);
 
+    // trayIcon = new QSystemTrayIcon(this);
+    // trayIcon->setIcon(QIcon::fromTheme("WeatherClear", QIcon(":/icons/tray_icon.png")));  // Використання іконки з теми з запасною іконкою
+    // trayIcon->show();
+    // showNotification("stub");
+
 }
+
 void Form::registrtionForm(){
-    clearWidgets();
+    clearWidgets(this);
     Register* reg = new Register(this);
     reg->show();
 }
-void Form::clearWidgets()
-{
-    // Очищення всіх віджетів, що додані до вікна Form
-    QList<QWidget *> widgets = findChildren<QWidget *>();
-    foreach (QWidget *widget, widgets) {
-        widget->deleteLater();
-    }
-}
+
 void Form::loginForm(){
-    clearWidgets();
+    clearWidgets(this);
     Login *login = new Login(this);
     login->show();
 }
+
+// void Form::showNotification(const QString &message)
+// {
+//     trayIcon->showMessage("Wather data", message, QSystemTrayIcon::Information, 3000);
+// }
 
 
 

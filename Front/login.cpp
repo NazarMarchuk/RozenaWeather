@@ -1,6 +1,5 @@
 #include "login.h"
-#include "dbmanager.h"
-#include "hash.h"
+
 
 Login::Login(QWidget *parent)
     :QWidget{parent}{
@@ -23,7 +22,13 @@ Login::Login(QWidget *parent)
 
     enterButton = new QPushButton("Login", this);
     layout->addWidget(enterButton);
+
+    backButton = new QPushButton("Back", this);
+    layout->addWidget(enterButton);
+
     connect(enterButton, &QPushButton::clicked, this, &Login::inputCheck);
+    connect(backButton, &QPushButton::clicked, this, &Login::stepBack);
+
     this->show();
 }
 
@@ -47,6 +52,12 @@ void Login::inputCheck(){
         PopupDialog dialog("User not found");
         dialog.exec();
     }
+}
+
+void Login::stepBack(){
+    clearWidgets(this);
+    Form* form = new Form(this);
+    form->show();
 }
 
 bool Login::userExist(){

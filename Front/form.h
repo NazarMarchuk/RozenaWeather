@@ -6,6 +6,14 @@
 #include <QPushButton>
 #include <QLineEdit>
 #include <QLabel>
+#include <QSystemTrayIcon>
+#include <QDebug>
+#include "dbmanager.h"
+#include "popupdialog.h"
+#include "login.h"
+#include "register.h"
+
+void clearWidgets(QWidget *parent);
 
 class Form : public QWidget
 {
@@ -14,13 +22,14 @@ private:
     QPushButton *loginButton;
     QPushButton *registerButton;
     QVBoxLayout* layout;
+    QSystemTrayIcon *trayIcon;
 public:
     explicit Form(QWidget *parent = nullptr);
 
 private slots:
     void registrtionForm();
     void loginForm();
-    void clearWidgets();
+    // showNotification(const QString &message);
 signals:
 };
 

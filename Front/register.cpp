@@ -1,6 +1,4 @@
 #include "register.h"
-#include "login.h"
-#include "dbmanager.h"
 
 Register::Register(QWidget *parent)
     :QWidget{parent}{
@@ -27,7 +25,13 @@ Register::Register(QWidget *parent)
 
     enterButton = new QPushButton("Register", this);
     layout->addWidget(enterButton);
+
+    backButton = new QPushButton("Back", this);
+    layout->addWidget(enterButton);
+
     connect(enterButton, &QPushButton::clicked, this, &Register::inputCheck);
+    connect(backButton, &QPushButton::clicked, this, &Register::stepBack);
+
     this->show();
 }
 
@@ -42,6 +46,12 @@ void Register::inputCheck(){
         PopupDialog dialog("User succesfully registred");
         dialog.exec();
     }
+}
+
+void Register::stepBack(){
+    clearWidgets(this);
+    Form* form = new Form(this);
+    form->show();
 }
 
 bool Register::userExist(){
