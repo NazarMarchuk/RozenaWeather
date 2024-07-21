@@ -6,10 +6,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import ua.nm.app.models.LocationModel;
+import ua.nm.app.dao.LocationDAO;
 
 @Component
 @PropertySource("classpath:weatherApi.properties")
@@ -19,8 +21,21 @@ public class LocationFinder {
     @Value("${api_key}")
     private String apiKey;
 
+    private LocationModel location = new LocationModel();
+    private LocationDAO locationDAO;
+
+    @Autowired
+    public void setLocationDAO(LocationDAO locationDAO) {
+        this.locationDAO = locationDAO;
+    }
+
     public LocationModel getLocationCoordinates(String name) {
-        LocationModel location = new LocationModel();
+        //use location from db if it's present by name
+        LocationModel dbLocation =  locationDAO.getLocation(name);
+
+        if (dbLocation != null) {
+            return dbLocation;
+        }
 
         String params = String.format("?q=%s&appid=%s&limit=%s", name, apiKey, "1");
 
@@ -53,6 +68,10 @@ public class LocationFinder {
                 location.setName(resultJson.getString("name"));
                 location.setCountry(resultJson.getString("country"));
                 location.setState(resultJson.getString("state"));
+
+                if (locationDAO.getLocation(location.getName()) == null) {
+                    locationDAO.saveLocation(location);
+                }
 
             } catch (Exception e) {
                 throw new RuntimeException(e);
