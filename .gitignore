@@ -40,3 +40,6 @@ build/
 
 # Ignore SonarLint files
 .idea/sonarlint/
+
+Back/src/main/resources/weatherApi.properties
+Back/src/main/resources/database.properties
