@@ -11,33 +11,23 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    dbmanager.cpp \
-    form.cpp \
-    hash.cpp \
-    login.cpp \
-    main.cpp \
-    popupdialog.cpp \
-    register.cpp \
-    web.cpp
+    sources/dbmanager.cpp \
+    sources/form.cpp \
+    sources/hash.cpp \
+    sources/login.cpp \
+    sources/main.cpp \
+    sources/popupdialog.cpp \
+    sources/register.cpp \
+    sources/web.cpp
 
 HEADERS += \
-    dbmanager.h \
-    form.h \
-    hash.h \
-    login.h \
-    popupdialog.h \
-    register.h \
-    web.h
-
-FORMS +=
-
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
-
-
-HEADERS +=
+    headers/dbmanager.h \
+    headers/form.h \
+    headers/hash.h \
+    headers/login.h \
+    headers/popupdialog.h \
+    headers/register.h \
+    headers/web.h
 
 FORMS +=
 
