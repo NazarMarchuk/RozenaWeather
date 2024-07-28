@@ -1,4 +1,4 @@
-#include "form.h"
+#include "mainLayout.h"
 // #include <QIcon>
 
 void clearWidgets(QWidget *parent)

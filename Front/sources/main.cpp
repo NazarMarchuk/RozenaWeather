@@ -1,4 +1,4 @@
-#include "form.h"
+#include "mainLayout.h"
 #include "dbmanager.h"
 #include "web.h"
 #include <QApplication>
