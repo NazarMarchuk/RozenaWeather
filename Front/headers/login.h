@@ -1,6 +1,6 @@
 #ifndef LOGIN_H
 #define LOGIN_H
-#include "form.h"
+#include "mainLayout.h"
 #include <QDebug>
 #include "dbmanager.h"
 #include "popupdialog.h"

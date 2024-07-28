@@ -1,7 +1,7 @@
 #ifndef REGISTER_H
 #define REGISTER_H
 
-#include "form.h"
+#include "mainLayout.h"
 #include "hash.h"
 #include "dbmanager.h"
 #include "popupdialog.h"
@@ -9,7 +9,7 @@
 #include <QWidget>
 #include "login.h"
 #include "dbmanager.h"
-#include "form.h"
+#include "mainLayout.h"
 
 
 class Register: public QWidget

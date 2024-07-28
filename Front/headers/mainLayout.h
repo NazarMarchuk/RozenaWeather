@@ -1,5 +1,5 @@
-#ifndef FORM_H
-#define FORM_H
+#ifndef MAINLAYOUT_H
+#define MAINLAYOUT_H
 
 #include <QWidget>
 #include <QVBoxLayout>
@@ -33,4 +33,4 @@ private slots:
 signals:
 };
 
-#endif // FORM_H
+#endif // MAINLAYOUT_H

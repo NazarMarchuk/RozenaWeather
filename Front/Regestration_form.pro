@@ -14,19 +14,19 @@ INCLUDEPATH += headers
 
 SOURCES += \
     sources/dbmanager.cpp \
-    sources/form.cpp \
     sources/hash.cpp \
     sources/login.cpp \
     sources/main.cpp \
+    sources/mainLayout.cpp \
     sources/popupdialog.cpp \
     sources/register.cpp \
     sources/web.cpp
 
 HEADERS += \
     headers/dbmanager.h \
-    headers/form.h \
     headers/hash.h \
     headers/login.h \
+    headers/mainLayout.h \
     headers/popupdialog.h \
     headers/register.h \
     headers/web.h
