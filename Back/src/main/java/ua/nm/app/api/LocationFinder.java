@@ -37,7 +37,7 @@ public class LocationFinder {
             return dbLocation;
         }
 
-        String params = String.format("?q=%s&appid=%s&limit=%s", name, apiKey, "1");
+        String params = String.format("?q=%s&appid=%s&limit=%s", name.replace(" ", "+"), apiKey, "1");
 
         URL url;
         JSONObject resultJson;
