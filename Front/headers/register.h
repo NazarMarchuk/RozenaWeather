@@ -1,17 +1,18 @@
-#ifndef LOGIN_H
-#define LOGIN_H
-#include "form.h"
-#include <QDebug>
+#ifndef REGISTER_H
+#define REGISTER_H
+
+#include "mainLayout.h"
+#include "hash.h"
 #include "dbmanager.h"
 #include "popupdialog.h"
+#include <QDebug>
+#include <QWidget>
+#include "login.h"
 #include "dbmanager.h"
-#include "hash.h"
-
-const QString DB_PATH = "/Users/bohdanborshchevskyi/Documents/git/RozenaWeather/Front/";
-const QString DB_NAME = "user_login_data.db";
+#include "mainLayout.h"
 
 
-class Login: public QWidget
+class Register: public QWidget
 {
     Q_OBJECT
 private:
@@ -19,13 +20,16 @@ private:
     QPushButton *backButton;
     QLineEdit *login;
     QLineEdit *password;
+    QLineEdit *location;
     QVBoxLayout* layout;
 public:
-    explicit Login(QWidget *parent = nullptr);
+    explicit Register(QWidget *parent = nullptr);
 private slots:
     void inputCheck();
+    void addUser();
     bool userExist();
     void stepBack();
 };
 
-#endif // LOGIN_H
+
+#endif // REGISTER_H
