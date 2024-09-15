@@ -1,16 +1,16 @@
 package ua.nm.app.api;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 @Component
-@PropertySource("classpath:weatherApi.properties")
 public class WeatherApiChecker {
     @Value("${weather.base_url}")
     private String baseUrl;

@@ -1,0 +1,11 @@
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.datasource.url=
+spring.datasource.name=
+spring.datasource.password=
+
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.properties.hibernate.show_sql=true
+
+location.base_url=http://api.openweathermap.org/geo/1.0/direct
+weather.base_url=https://api.openweathermap.org/data/3.0/onecall
+api_key=

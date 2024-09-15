@@ -1,20 +1,20 @@
 package ua.nm.app.api;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
-import ua.nm.app.models.LocationModel;
 import ua.nm.app.dao.LocationDAO;
+import ua.nm.app.models.LocationModel;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 @Component
-@PropertySource("classpath:weatherApi.properties")
 public class LocationFinder {
     @Value("${location.base_url}")
     private String baseUrl;
@@ -34,6 +34,7 @@ public class LocationFinder {
         LocationModel dbLocation =  locationDAO.getLocation(name);
 
         if (dbLocation != null) {
+            System.out.println("USED LOCATION FROM DB: " + dbLocation.getName());
             return dbLocation;
         }
 
@@ -69,9 +70,8 @@ public class LocationFinder {
                 location.setCountry(resultJson.getString("country"));
                 location.setState(resultJson.getString("state"));
 
-                if (locationDAO.getLocation(location.getName()) == null) {
-                    locationDAO.saveLocation(location);
-                }
+                locationDAO.saveLocation(location);
+                System.out.println("LOCATION SAVED TO DB: " + location.getName());
 
             } catch (Exception e) {
                 throw new RuntimeException(e);

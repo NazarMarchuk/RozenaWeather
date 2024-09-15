@@ -42,5 +42,4 @@ build/
 .idea/sonarlint/
 
 ### resources ###
-Back/src/main/resources/weatherApi.properties
-Back/src/main/resources/database.properties
+Back/src/main/resources/application.properties

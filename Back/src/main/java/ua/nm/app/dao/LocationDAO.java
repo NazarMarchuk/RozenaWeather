@@ -1,27 +1,33 @@
 package ua.nm.app.dao;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.nm.app.models.LocationModel;
 
-@Component
+
+@Service
 public class LocationDAO {
-    private JdbcTemplate jdbcTemplate;
 
-    @Autowired
-    public LocationDAO(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
+    @Transactional
     public void saveLocation(LocationModel location) {
-        jdbcTemplate.update("INSERT INTO Location VALUES (1, ?, ?, ?, ?, ?)", location.getName(),
-            location.getLat(), location.getLon(), location.getCountry(), location.getState());
+        entityManager.persist(location);
     }
 
+    @Transactional
     public LocationModel getLocation(String name) {
-        return jdbcTemplate.query("SELECT * FROM Location WHERE name=?",
-            new BeanPropertyRowMapper<>(LocationModel.class), name).stream().findFirst().orElse(null);
+        LocationModel location;
+
+        location = entityManager.find(LocationModel.class, name);
+
+        return location;
     }
 }

@@ -1,12 +1,28 @@
 package ua.nm.app.models;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "location")
 public class LocationModel {
-    private String lat;
-    private String lon;
+
+    @Id
+    @Column(name="name")
     private String name;
+    @Column(name="lat")
+    private String lat;
+    @Column(name="lon")
+    private String lon;
+    @Column(name="country")
     private String country;
+    @Column(name="state")
     private String state;
 
+    public LocationModel() {
+    }
 
     public String getLat() {
         return lat;
