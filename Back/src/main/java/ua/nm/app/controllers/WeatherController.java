@@ -1,6 +1,5 @@
 package ua.nm.app.controllers;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ua.nm.app.api.LocationFinder;
 import ua.nm.app.models.LocationModel;
 import ua.nm.app.models.WeatherModel;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/weather")
@@ -28,13 +29,13 @@ public class WeatherController {
     @GetMapping("")
     public String setInputs(@ModelAttribute("location") String inputtedLocation, Model model) {
 
+        model.addAttribute("weather", weather);
+
         if (!(inputtedLocation == null || inputtedLocation.isEmpty())) {
             location = locationFinder.getLocationCoordinates(inputtedLocation);
             WeatherModel currentWeather = weather.getWeatherOneDayByLocation(location);
-            model.addAttribute("currentWeather", currentWeather);
+            model.addAttribute("weather", currentWeather);
         }
-
-        model.addAttribute("weather", weather);
         model.addAttribute("location", location);
 
         return "weather/start_input_location";

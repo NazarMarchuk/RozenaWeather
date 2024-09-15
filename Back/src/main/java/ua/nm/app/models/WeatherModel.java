@@ -1,12 +1,13 @@
 package ua.nm.app.models;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.nm.app.api.WeatherApiChecker;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class WeatherModel {
