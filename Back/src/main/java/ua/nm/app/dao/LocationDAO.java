@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.nm.app.models.LocationModel;
 
 
-
 @Service
 public class LocationDAO {
     @PersistenceContext
